@@ -2,6 +2,7 @@ package com.neppplus.retrofitlibrarytest_20220113
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.neppplus.retrofitlibrarytest_20220113.databinding.ActivitySignUpBinding
 import com.neppplus.retrofitlibrarytest_20220113.datas.BasicResponse
@@ -31,6 +32,13 @@ class SignUpActivity : BaseActivity() {
                     call: Call<BasicResponse>,
                     response: Response<BasicResponse>
                 ) {
+                    if(response.isSuccessful) {
+
+                        val br = response.body()!!
+
+                        Log.d("가입한사람 토큰",br.data.token)
+
+                    }
 
                 }
 
