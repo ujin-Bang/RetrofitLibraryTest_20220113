@@ -20,12 +20,11 @@ interface ServerAPIService {
 
 //    회원가입 기능 명세
 
-    @FormUrlEncoded
-    @PUT("/user")
-    fun putRequestSignUp(
-        @Field("email") email: String,
-        @Field("password") pw: String,
-        @Field("nick_name") nickname: String,
-    ) : Call<BasicResponse>
-
+   @FormUrlEncoded
+   @PUT("/user")
+   fun putRequestSignUp(
+       @Field("email") email: String,
+       @Field("password") pw: String,
+       @Field("nick_name") nick: String,
+   ) : Call<BasicResponse>
 }
