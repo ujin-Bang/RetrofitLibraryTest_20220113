@@ -15,6 +15,9 @@ import retrofit2.Response
 class SignUpActivity : BaseActivity() {
 
     lateinit var binding: ActivitySignUpBinding
+
+    var isDuplOk = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
@@ -30,10 +33,15 @@ class SignUpActivity : BaseActivity() {
 
 //            재검사 요청
             binding.txtEmailCheckResult.text ="이메일 중복검사를 해주세요."
+            isDuplOk = false
         }
 
         binding.btnEmailCheck.setOnClickListener {
 
+            if(!isDuplOk) {
+                Toast.makeText(mContext, "이메일 중복 검사를 해주세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val email = binding.edtEmail.text.toString()
 
             apiService.getRequestDuplicatedCheck("EMAIL", email).enqueue( object : Callback<BasicResponse>{
@@ -46,10 +54,13 @@ class SignUpActivity : BaseActivity() {
 
 //                        code : 200 => 사용해도 좋은 이메일
                         binding.txtEmailCheckResult.text =" 사용해도 좋은 이메일 입니다."
+                        isDuplOk
+                        isDuplOk = true
                     }
                     else {
 //                        사용하면 안되는 이메일
                         binding.txtEmailCheckResult.text = " 다른 이메일로 다시 검사해주세용"
+                        isDuplOk = false
                     }
                 }
 
