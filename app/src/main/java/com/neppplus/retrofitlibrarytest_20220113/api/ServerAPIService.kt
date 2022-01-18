@@ -32,4 +32,19 @@ interface ServerAPIService {
     @Query("value") value: String,
 
    ): Call<BasicResponse>
+
+//   내 정보 조회 - GET / 토큰값(임시방안)
+   @GET("user")
+   fun getRequestMyInfo(
+        @Header("X-Http-Token") token: String,
+   ): Call<BasicResponse>
+
+//   상품목록 받아오기 - GET / 아무 파라미터도 없음(서버의 임시 API)
+
+   @GET("product")
+   fun getRequestProductList() : Call<BasicResponse>
+
+//   소분류 전체 목록 받아오기 - GET / 아무 파라미터 없어므(서버의 임시 API)
+   @GET("category/small")
+   fun getRequestSmallCategoryList(): Call<BasicResponse>
 }

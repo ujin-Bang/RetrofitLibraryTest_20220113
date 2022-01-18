@@ -11,7 +11,7 @@ class ServerAPI {
     companion object {
 //        기본 접속 서버
 //        private var BASE_URL = "http://3.34.159.73"
-        private var BASE_URL = "http://keepthetime.xyz"
+        private var BASE_URL = "https://api.gudoc.in"
 
       private var retrofit : Retrofit? = null //앱이 처음 켜질때는 없다. => 한번만 만들고 함수를 통해서 공유
 
