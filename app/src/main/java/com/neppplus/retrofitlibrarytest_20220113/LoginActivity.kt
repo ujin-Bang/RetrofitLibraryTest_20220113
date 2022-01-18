@@ -1,9 +1,13 @@
 package com.neppplus.retrofitlibrarytest_20220113
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import com.neppplus.retrofitlibrarytest_20220113.databinding.ActivityLoginBinding
 import com.neppplus.retrofitlibrarytest_20220113.datas.BasicResponse
@@ -11,15 +15,34 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.security.MessageDigest
 
 class LoginActivity : BaseActivity() {
 
     lateinit var binding:ActivityLoginBinding
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
        binding= DataBindingUtil.setContentView(this,R.layout.activity_login)
         setupEvents()
         setValues()
+
+        try {
+            val information =
+                packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
+            val signatures = information.signingInfo.apkContentsSigners
+            val md = MessageDigest.getInstance("SHA")
+            for (signature in signatures) {
+                val md: MessageDigest
+                md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                var hashcode = String(Base64.encode(md.digest(), 0))
+                Log.d("hashcode", "" + hashcode)
+            }
+        } catch (e: Exception) {
+            Log.d("hashcode", "에러::" + e.toString())
+
+        }
     }
 
     override fun setupEvents() {
@@ -50,6 +73,11 @@ class LoginActivity : BaseActivity() {
                         val userNickname = basicResponse.data.user.nickname
 
                         Toast.makeText(mContext, "${userNickname}님 환영합니다!", Toast.LENGTH_SHORT).show()
+
+                        val myIntent = Intent(mContext, MainActivity:: class.java)
+                        startActivity(myIntent)
+
+                        finish()
                     }
                    else {
                        val errorJson = JSONObject(response.errorBody()!!.string())
@@ -74,5 +102,19 @@ class LoginActivity : BaseActivity() {
 
     override fun setValues() {
 
+        getKeyHash()
+    }
+
+    fun getKeyHash(){
+
+        val info = packageManager.getPackageInfo(
+            "com.neppplus.retrofitlibrarytest_20220113",
+            PackageManager.GET_SIGNATURES
+        )
+        for (signature in info.signatures) {
+            val md: MessageDigest = MessageDigest.getInstance("SHA")
+            md.update(signature.toByteArray())
+            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+        }
     }
 }
