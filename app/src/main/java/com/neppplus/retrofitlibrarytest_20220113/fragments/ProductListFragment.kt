@@ -8,10 +8,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.neppplus.retrofitlibrarytest_20220113.R
 import com.neppplus.retrofitlibrarytest_20220113.databinding.FragmentProductListBinding
+import com.neppplus.retrofitlibrarytest_20220113.datas.BasicResponse
+import com.neppplus.retrofitlibrarytest_20220113.datas.ProductData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ProductListFragment: BaseFragment() {
 
     lateinit var binding: FragmentProductListBinding
+
+    val mProductList = ArrayList<ProductData>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +40,29 @@ class ProductListFragment: BaseFragment() {
     }
 
     override fun setValues() {
+
+        getProductListFromServer()
+    }
+
+    fun getProductListFromServer(){
+
+        apiService.getRequestProductList().enqueue(object :Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+                if(response.isSuccessful){
+
+                    mProductList.clear()
+
+                    mProductList.addAll(response.body()!!.data.products)
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+
+
+        })
 
     }
 }
