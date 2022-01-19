@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.neppplus.retrofitlibrarytest_20220113.R
 import com.neppplus.retrofitlibrarytest_20220113.adapters.ProductRecyclerAdapter
 import com.neppplus.retrofitlibrarytest_20220113.databinding.FragmentProductListBinding
@@ -49,7 +50,7 @@ class ProductListFragment: BaseFragment() {
 
         mProductRecyclerAdapter = ProductRecyclerAdapter(mContext, mProductList)
         binding.productListRecyclerView.adapter = mProductRecyclerAdapter
-        binding.productListRecyclerView.layoutManager = LinearLayoutManager(mContext)
+        binding.productListRecyclerView.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
     }
 
     fun getProductListFromServer(){
