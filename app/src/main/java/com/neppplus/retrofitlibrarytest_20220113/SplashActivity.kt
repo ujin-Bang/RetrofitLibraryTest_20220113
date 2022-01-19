@@ -7,6 +7,11 @@ import android.os.Handler
 import android.os.Looper
 import androidx.databinding.DataBindingUtil
 import com.neppplus.retrofitlibrarytest_20220113.databinding.ActivitySplashBinding
+import com.neppplus.retrofitlibrarytest_20220113.datas.BasicResponse
+import com.neppplus.retrofitlibrarytest_20220113.datas.UserData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SplashActivity : BaseActivity() {
 
@@ -24,12 +29,29 @@ class SplashActivity : BaseActivity() {
 
     override fun setValues() {
 
+        var loginUser: UserData? = null
+
+        apiService.getRequestMyInfo(ContextUtil.getToken(mContext)).enqueue(object :Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+                if(response.isSuccessful){
+//                   //올바른 토큰일 때 -> loginUser에 파싱해서 객체 대입
+                     loginUser = response.body()!!.data.user
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+
+        })
+
         val myHandler = Handler(Looper.getMainLooper())
 
         myHandler.postDelayed({
             val myIntent: Intent
 
-            if( ContextUtil.getToken(mContext) !="" ) {
+            if( loginUser != null ) {
                 myIntent = Intent(mContext, MainActivity::class.java)
 
             }
