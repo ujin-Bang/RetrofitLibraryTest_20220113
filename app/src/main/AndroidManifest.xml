@@ -13,6 +13,9 @@
         android:theme="@style/Theme.RetrofitLibraryTest_20220113"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
