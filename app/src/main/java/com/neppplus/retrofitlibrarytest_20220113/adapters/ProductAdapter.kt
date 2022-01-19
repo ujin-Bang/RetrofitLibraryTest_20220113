@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.neppplus.retrofitlibrarytest_20220113.R
 import com.neppplus.retrofitlibrarytest_20220113.datas.ProductData
 
@@ -37,7 +38,7 @@ class ProductAdapter(
 
         txtStoreName.text = data.Store.name
 
-//       Glide.with(mContext).load(data.Store.logoURL).into(imgStoreLogo)
+      Glide.with(mContext).load(data.Store.logoURL).into(imgStoreLogo)
 
         txtProductPrice.text = data.price.toString()
 
