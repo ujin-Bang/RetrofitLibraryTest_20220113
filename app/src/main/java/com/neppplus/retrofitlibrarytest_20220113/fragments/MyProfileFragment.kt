@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
@@ -42,9 +44,24 @@ class MyProfileFragment:BaseFragment() {
 
 //            닉네임 변경 입력(AlertDialog 커스텀뷰) + API 호출
             val alert = AlertDialog.Builder(mContext)
-            alert.setMessage("닉네임 변경")
+            alert.setTitle("닉네임 변경")
+
+//            얼럿의 내부 뷰를 커스텀뷰로 (xml -> View로 가져와서)
+//            xml 내부 UI접근 필요 -> inflate 해와서 사용하자
+
+            val customView = LayoutInflater.from(mContext).inflate(R.layout.my_custom_alert_edit_nickname, null)
+
+            alert.setView(customView)
+
+            val edtNickname = customView.findViewById<EditText>(R.id.edtNickname)
+
+
+
             alert.setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
 
+                val inputNickname = edtNickname.text.toString()
+
+                Toast.makeText(mContext, inputNickname, Toast.LENGTH_SHORT).show()
             })
             alert.setNegativeButton("취소", null)
             alert.show()
