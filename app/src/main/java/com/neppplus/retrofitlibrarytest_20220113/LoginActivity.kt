@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.neppplus.retrofitlibrarytest_20220113.databinding.ActivityLoginBinding
 import com.neppplus.retrofitlibrarytest_20220113.datas.BasicResponse
 import com.neppplus.retrofitlibrarytest_20220113.utils.ContextUtil
+import com.neppplus.retrofitlibrarytest_20220113.utils.GlobalData
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -59,8 +60,11 @@ class LoginActivity : BaseActivity() {
                             Toast.makeText(mContext, "${userNickname}님 환영합니다!", Toast.LENGTH_SHORT)
                                 .show()
 
-//                            토큰값 추출/ 기기에 저장
+//                            토큰값 추출/ 기기에 저장(SharedPreferences)
                             ContextUtil.setToken(mContext,basicResponse.data.token)
+
+//                            로그인한 사람이 누군지 데이터 세팅.
+                            GlobalData.loginUser = basicResponse.data.user
 
                             val myIntent = Intent(mContext, MainActivity::class.java)
                             startActivity(myIntent)
