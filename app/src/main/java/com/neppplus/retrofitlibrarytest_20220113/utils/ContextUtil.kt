@@ -1,4 +1,4 @@
-package com.neppplus.retrofitlibrarytest_20220113
+package com.neppplus.retrofitlibrarytest_20220113.utils
 
 import android.content.Context
 

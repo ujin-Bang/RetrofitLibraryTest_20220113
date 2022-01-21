@@ -2,15 +2,14 @@ package com.neppplus.retrofitlibrarytest_20220113
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import com.neppplus.retrofitlibrarytest_20220113.databinding.ActivityLoginBinding
 import com.neppplus.retrofitlibrarytest_20220113.datas.BasicResponse
+import com.neppplus.retrofitlibrarytest_20220113.utils.ContextUtil
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
