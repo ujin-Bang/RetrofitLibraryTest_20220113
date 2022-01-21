@@ -1,9 +1,11 @@
 package com.neppplus.retrofitlibrarytest_20220113.fragments
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.neppplus.retrofitlibrarytest_20220113.utils.ContextUtil
@@ -36,6 +38,17 @@ class MyProfileFragment:BaseFragment() {
     }
 
     override fun setupEvents() {
+        binding.btnEditNickname.setOnClickListener {
+
+//            닉네임 변경 입력(AlertDialog 커스텀뷰) + API 호출
+            val alert = AlertDialog.Builder(mContext)
+            alert.setMessage("닉네임 변경")
+            alert.setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
+
+            })
+            alert.setNegativeButton("취소", null)
+            alert.show()
+        }
 
     }
 
