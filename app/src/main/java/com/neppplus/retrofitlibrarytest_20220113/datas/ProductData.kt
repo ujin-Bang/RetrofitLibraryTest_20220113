@@ -1,6 +1,7 @@
 package com.neppplus.retrofitlibrarytest_20220113.datas
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.text.NumberFormat
 import java.util.*
 
@@ -16,7 +17,7 @@ class ProductData(
     @SerializedName("small_category")
     var smallCategory: SmallCategoryData
 
-) {
+): Serializable {
     fun getFormattedPrice(): String {
 
         return "${ NumberFormat.getNumberInstance(Locale.KOREA).format(this.price) }원"
