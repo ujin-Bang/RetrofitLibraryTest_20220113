@@ -2,10 +2,15 @@ package com.neppplus.retrofitlibrarytest_20220113
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.neppplus.retrofitlibrarytest_20220113.databinding.ActivityEditReviewBinding
+import com.neppplus.retrofitlibrarytest_20220113.datas.BasicResponse
 import com.neppplus.retrofitlibrarytest_20220113.datas.ProductData
 import com.neppplus.retrofitlibrarytest_20220113.utils.GlobalData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,7 +29,30 @@ class EditReviewActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+    binding.btnWrite.setOnClickListener {
 
+        val inputTitle = binding.edtReviewTitle.text.toString()
+        val inputContent = binding.edtContent.text.toString()
+
+//        몇 점 입력?
+        val rating = binding.ratingBar.rating.toInt()
+        Log.d("평점 점수", rating.toString())
+
+        apiService.postRequestReview(mPorductData.id, inputTitle, inputContent, rating).enqueue(object :Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+
+
+        })
+
+
+
+    }
 
     }
 
