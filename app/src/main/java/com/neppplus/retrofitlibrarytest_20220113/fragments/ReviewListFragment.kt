@@ -20,9 +20,6 @@ class ReviewListFragment: BaseFragment() {
 
      lateinit var binding: FragmentReviewListBinding
 
-     val mCategoryList = ArrayList<SmallCategoryData>()
-
-    lateinit var mCategoryAdapter: CategoryRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,36 +43,7 @@ class ReviewListFragment: BaseFragment() {
     override fun setValues() {
 
 
-        getCategoryListFromServer()
 
-        mCategoryAdapter = CategoryRecyclerAdapter(mContext, mCategoryList)
-        binding.categoyListRecyclerView.adapter = mCategoryAdapter
-        binding.categoyListRecyclerView.layoutManager = LinearLayoutManager(mContext)
-
-    }
-    fun getCategoryListFromServer() {
-
-        apiService.getRequestSmallCategoryList().enqueue( object : Callback<BasicResponse>{
-            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
-
-                if(response.isSuccessful) {
-
-                    var br = response.body()!!
-
-                    mCategoryList.clear()
-                    mCategoryList.addAll(br.data.categories)
-
-                    mCategoryAdapter.notifyDataSetChanged()
-
-                }
-            }
-
-            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-
-            }
-
-
-        })
 
     }
 }
