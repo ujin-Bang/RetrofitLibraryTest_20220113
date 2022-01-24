@@ -3,6 +3,7 @@ package com.neppplus.retrofitlibrarytest_20220113
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
@@ -59,10 +60,11 @@ class EditReviewActivity : BaseActivity() {
 
 //               태그 목록 보여줄 레이아웃에 텍스트뷰를 생성 => 코틀린에서 텍스트뷰 생성.
 
-               val tagTextView = TextView(mContext)
-               tagTextView.text = tag
+              val tagBox = LayoutInflater.from(mContext).inflate(R.layout.tag_list_item, null)
+               val txtTag = tagBox.findViewById<TextView>(R.id.txtTag)
+                txtTag.text = "#${tag}"
 
-               binding.tagListLayout.addView(tagTextView)
+               binding.tagListLayout.addView(tagBox)
 
 //               입력값 초기화
                binding.edtTag.setText("")
