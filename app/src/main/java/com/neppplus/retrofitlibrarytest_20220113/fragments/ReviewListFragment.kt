@@ -11,6 +11,7 @@ import com.neppplus.retrofitlibrarytest_20220113.R
 import com.neppplus.retrofitlibrarytest_20220113.adapters.CategoryRecyclerAdapter
 import com.neppplus.retrofitlibrarytest_20220113.databinding.FragmentReviewListBinding
 import com.neppplus.retrofitlibrarytest_20220113.datas.BasicResponse
+import com.neppplus.retrofitlibrarytest_20220113.datas.ReviewData
 import com.neppplus.retrofitlibrarytest_20220113.datas.SmallCategoryData
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +21,7 @@ class ReviewListFragment: BaseFragment() {
 
      lateinit var binding: FragmentReviewListBinding
 
+    val mReviewList = ArrayList<ReviewData>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,8 +44,30 @@ class ReviewListFragment: BaseFragment() {
 
     override fun setValues() {
 
+    getReviewListFromServer()
 
+    }
 
+    fun getReviewListFromServer() {
+
+        apiService.getRequestReview().enqueue(object :Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+                if(response.isSuccessful) {
+
+                    val br = response.body()!!
+
+                    mReviewList.clear()
+                    mReviewList.addAll(br.data.reviews)
+
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+
+        })
 
     }
 }
