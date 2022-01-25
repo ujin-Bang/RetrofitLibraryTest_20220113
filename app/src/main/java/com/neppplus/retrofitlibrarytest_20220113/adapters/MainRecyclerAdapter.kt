@@ -1,9 +1,11 @@
 package com.neppplus.retrofitlibrarytest_20220113.adapters
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.neppplus.retrofitlibrarytest_20220113.R
 import com.neppplus.retrofitlibrarytest_20220113.datas.ReviewData
 
 class MainRecyclerAdapter(val mContext: Context, val mList: List<ReviewData>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -38,6 +40,18 @@ class MainRecyclerAdapter(val mContext: Context, val mList: List<ReviewData>): R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
+        return when(viewType) {
+
+            HEADER_VIEW_TYPE -> {
+                val row = LayoutInflater.from(mContext).inflate(R.layout.main_recycler_item_top_view,parent,false)
+                HeaderViewHolder(row)
+            }
+            else {
+//                리뷰아이템
+                val row= LayoutInflater.from(mContext).inflate(R.layout.main_recycler_item_review_item, parent, false)
+                ItemViewHolder(row)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
