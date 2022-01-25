@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.neppplus.retrofitlibrarytest_20220113.fragments.MyProfileFragment
 import com.neppplus.retrofitlibrarytest_20220113.fragments.ProductListFragment
+import com.neppplus.retrofitlibrarytest_20220113.fragments.RecyclerViewPracticeFragment
 import com.neppplus.retrofitlibrarytest_20220113.fragments.ReviewListFragment
 
 class MainViewPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
@@ -23,7 +24,7 @@ class MainViewPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
 
         return when(position){
 
-            0 -> ReviewListFragment()
+            0 -> RecyclerViewPracticeFragment()
             1 -> ProductListFragment()
             else -> MyProfileFragment()
 

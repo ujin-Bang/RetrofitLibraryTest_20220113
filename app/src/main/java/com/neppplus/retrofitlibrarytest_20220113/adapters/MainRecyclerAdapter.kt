@@ -46,7 +46,7 @@ class MainRecyclerAdapter(val mContext: Context, val mList: List<ReviewData>): R
                 val row = LayoutInflater.from(mContext).inflate(R.layout.main_recycler_item_top_view,parent,false)
                 HeaderViewHolder(row)
             }
-            else {
+            else -> {
 //                리뷰아이템
                 val row= LayoutInflater.from(mContext).inflate(R.layout.main_recycler_item_review_item, parent, false)
                 ItemViewHolder(row)
