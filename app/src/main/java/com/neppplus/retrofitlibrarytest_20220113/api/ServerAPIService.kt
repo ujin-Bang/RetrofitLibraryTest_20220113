@@ -73,7 +73,7 @@ interface ServerAPIService {
 //   프로필 사진 첨부 -> Field 대신 Multipart 활용
    @Multipart
    @PUT("/user/image")
-   fun putRequestPorfileImg(
+   fun putRequestProfileImg(
         @Part img: MultipartBody.Part
    ): Call<BasicResponse>
 
