@@ -1,5 +1,6 @@
 package com.neppplus.retrofitlibrarytest_20220113.fragments
 
+import android.Manifest
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
@@ -13,6 +14,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.normal.TedPermission
 import com.neppplus.retrofitlibrarytest_20220113.utils.ContextUtil
 import com.neppplus.retrofitlibrarytest_20220113.R
 import com.neppplus.retrofitlibrarytest_20220113.databinding.FragmentMyProfileBinding
@@ -65,17 +68,35 @@ class MyProfileFragment:BaseFragment() {
                 val file = File(URIPathHelper().getPath(mContext, selectedImageUri))
             }
         }
+
     }
 
     override fun setupEvents() {
 
         binding.imgProfile.setOnClickListener {
 
-//            갤러리(안드로이드에서 제공) 로 사진 가지러 이동(왕복이동)
-            val myIntent = Intent()
-            myIntent.action = Intent.ACTION_PICK
-            myIntent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
-            startActivityForResult(myIntent,REQ_FOR_GALLERY)
+//            실제 파일 경로 읽는 권한 필요.(업로드가 가능해짐)
+                val pl = object : PermissionListener{
+                    override fun onPermissionGranted() {
+
+                        //            갤러리(안드로이드에서 제공) 로 사진 가지러 이동(왕복이동)
+                        val myIntent = Intent()
+                        myIntent.action = Intent.ACTION_PICK
+                        myIntent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
+                        startActivityForResult(myIntent,REQ_FOR_GALLERY)
+                    }
+
+                    override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+                        Toast.makeText(mContext, "갤러리 조회권한이 없습니다유", Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+
+            TedPermission.create()
+                .setPermissionListener( pl )
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check()
+
         }
 
         binding.btnEditNickname.setOnClickListener {
