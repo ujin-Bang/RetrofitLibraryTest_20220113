@@ -60,6 +60,12 @@ class RecyclerViewPracticeFragment:BaseFragment() {
 
                     val br = response.body()!!
 
+                    mMainRecyclerAdapter.mBannerList.clear()
+                    mMainRecyclerAdapter.mBannerList.addAll(br.data.banners)
+
+//                    (뷰페이저) 어댑터 새로고침
+                    mMainRecyclerAdapter.bannerViewPagerAdapter.notifyDataSetChanged()
+
                 }
 
             }
