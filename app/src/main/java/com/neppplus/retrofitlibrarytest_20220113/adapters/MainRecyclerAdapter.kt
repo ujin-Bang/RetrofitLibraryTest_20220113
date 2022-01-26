@@ -32,9 +32,9 @@ class MainRecyclerAdapter(val mContext: Context, val mList: List<ReviewData>): R
 //            배너 페이지 어댑터를 생성
 //            1.fm(FragmentManager) => 화면 mContext(Context) ->MainActivivy로 변신 -> supportFragmentManager
 //            2.bannerList => Fragment에서 -> 배너 목록 API호출 -> 파싱된 것을 받아오자.
-             val bannerViewPagerAdapger = BannerViewPagerAdapger((mContext as MainActivity).supportFragmentManager, mBannerList)
+             val bannerViewPagerAdapter = BannerViewPagerAdapter((mContext as MainActivity).supportFragmentManager, mBannerList)
 
-            bannerViewPager.adapter = bannerViewPagerAdapger
+            bannerViewPager.adapter = bannerViewPagerAdapter
 
             imgCategory1.setOnClickListener {
                 Toast.makeText(mContext, "1번카테고리 눌림", Toast.LENGTH_SHORT).show()

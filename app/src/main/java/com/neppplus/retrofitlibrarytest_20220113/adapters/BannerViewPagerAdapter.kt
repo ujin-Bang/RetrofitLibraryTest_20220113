@@ -6,12 +6,13 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.neppplus.retrofitlibrarytest_20220113.datas.BannerData
 import com.neppplus.retrofitlibrarytest_20220113.fragments.BannerFragment
 
-class BannerViewPagerAdapger(fm: FragmentManager, val mBannerList: List<BannerData>): FragmentPagerAdapter(fm) {
+class BannerViewPagerAdapter(fm: FragmentManager, val mBannerList: List<BannerData>): FragmentPagerAdapter(fm) {
     override fun getCount()= mBannerList.size
 
     override fun getItem(position: Int): Fragment {
 
         return BannerFragment(mBannerList[position])
+
 
     }
 }

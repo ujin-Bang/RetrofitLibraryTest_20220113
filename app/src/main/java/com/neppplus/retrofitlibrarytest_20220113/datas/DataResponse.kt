@@ -9,6 +9,8 @@ class DataResponse(
 
     var categories: List<SmallCategoryData>,
 
-    var reviews: List<ReviewData>
+    var reviews: List<ReviewData>,
+
+    var banners: List<BannerData>
 ) {
 }
