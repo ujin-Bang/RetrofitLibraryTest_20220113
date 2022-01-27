@@ -1,6 +1,7 @@
 package com.neppplus.retrofitlibrarytest_20220113.adapters
 
 import android.content.Context
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,10 @@ import com.neppplus.retrofitlibrarytest_20220113.MainActivity
 import com.neppplus.retrofitlibrarytest_20220113.R
 import com.neppplus.retrofitlibrarytest_20220113.datas.BannerData
 import com.neppplus.retrofitlibrarytest_20220113.datas.ReviewData
+import java.util.*
+import java.util.logging.Handler
+import kotlin.collections.ArrayList
+import kotlin.concurrent.timer
 
 class MainRecyclerAdapter(val mContext: Context, val mList: List<ReviewData>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -38,6 +43,32 @@ class MainRecyclerAdapter(val mContext: Context, val mList: List<ReviewData>): R
               bannerViewPagerAdapter = BannerViewPagerAdapter((mContext as MainActivity).supportFragmentManager, mBannerList)
 
             bannerViewPager.adapter = bannerViewPagerAdapter
+
+//            완성된 배너 어댑터에 -> 2초마다 다음 그림으로 넘어가게
+
+//            다음 그림으로 넘어가게 => 할일 (코드)생성
+            val nextPage = {
+
+
+            } //Runnable : 할일이 담긴 변수
+
+//            타이머 안에서 =>할일을 => UIThread로 전달해주는 도구.(Handler)
+            val myHandler = android.os.Handler(Looper.getMainLooper())
+
+//            Timer클래스 활용 => 할일 (코드)를 2초마다 반복
+
+            val titme = Timer()
+            timer.schedule( object : TimerTask() {
+                override fun run() {
+
+//                    반복 수행할 코드 =>UI쓰레드가 아님(UI조작 / 앱 죽는다)
+//                    UI쓰레드에다가 -> nextPage에 적힌 할ㅇ리 실행하도록 넘겨주자.
+                    myHandler.post(nextPage)
+
+                }
+
+            },2000,2000)
+
 
             imgCategory1.setOnClickListener {
                 Toast.makeText(mContext, "1번카테고리 눌림", Toast.LENGTH_SHORT).show()
