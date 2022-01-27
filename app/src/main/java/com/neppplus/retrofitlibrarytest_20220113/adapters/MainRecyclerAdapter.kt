@@ -46,9 +46,24 @@ class MainRecyclerAdapter(val mContext: Context, val mList: List<ReviewData>): R
 
 //            완성된 배너 어댑터에 -> 2초마다 다음 그림으로 넘어가게
 
-//            다음 그림으로 넘어가게 => 할일 (코드)생성
-            val nextPage = {
+//            다음 배너로 넘어가게 (ViewPager에게 다음페이지로) => 할일 (코드)생성
 
+//            시작은 0페이지에서
+            var currentPage = 0
+
+            val nextPage = {
+//              다음쪽으로 , 페이지수 증가
+                currentPage++
+
+//                증가후 검사 -> 3장짜리인데, 3번칸으로 가게하면? 범위 벗어나는 에러
+                if(currentPage == mBannerList.size){
+
+//                    가야할 페이지가 3번칸이다 라면 => 처음으로 돌아가게 하자
+                    currentPage = 0
+                }
+
+//                뷰페이저에 페이지 이동
+                bannerViewPager.currentItem = currentPage
 
             } //Runnable : 할일이 담긴 변수
 
@@ -57,12 +72,12 @@ class MainRecyclerAdapter(val mContext: Context, val mList: List<ReviewData>): R
 
 //            Timer클래스 활용 => 할일 (코드)를 2초마다 반복
 
-            val titme = Timer()
+            val timer = Timer()
             timer.schedule( object : TimerTask() {
                 override fun run() {
 
-//                    반복 수행할 코드 =>UI쓰레드가 아님(UI조작 / 앱 죽는다)
-//                    UI쓰레드에다가 -> nextPage에 적힌 할ㅇ리 실행하도록 넘겨주자.
+//                    반복 수행할 코드 => UI쓰레드가 아님(UI조작 / 앱 죽는다)
+//                    UI쓰레드에다가 -> nextPage에 적힌 할일 실행하도록 넘겨주자.
                     myHandler.post(nextPage)
 
                 }
